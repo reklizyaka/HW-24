@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		const obj = {
+			name: 'ulala',
+			surname: 'ololo'
+		}
+
+		const mapData = new Map;
+		mapData.set('first', 'Ivan');
+		mapData.set('last', 'Petrov');
+
+		const getKeys = function(obj) {
+			const keys = [];
+			if (obj instanceof Map){
+				obj.forEach( (value, key) => {
+					keys.push(key);
+				})
+				return keys;
+			} else {
+				for (var key in obj){
+					keys.push(key);
+				}
+				return keys;
+			}
+		}	
+		console.log(getKeys(obj))
+		console.log(getKeys(mapData))
+
+		const getValues = function(obj) {
+			const values = [];
+			if (obj instanceof Map){
+				obj.forEach( (value, key) => {
+					values.push(value);
+				})
+				return values;
+			} else {
+				for (let i in obj) {
+					if (obj[i] === null && typeof(obj[i]==='object')) {
+						for (let e in obj[i]) {
+							values.push(obj[i][e])
+						}
+					} else {
+						values.push(obj[i]);
+					}
+				} return values;
+			}
+		}
+
+		console.log(getValues(obj))
+		console.log(getValues(mapData))
+
+		const getEntries = function(obj) {
+			const values = [];
+			if (obj instanceof Map){
+				obj.forEach( (value, key) => {
+					values.push([[key],[value]]);
+				})
+				return values;
+			} else {
+				for(var i in obj) {
+					let tempArr = [];
+					if(obj[i] != null &&  typeof(obj[i])=="object"){
+						getEntries(obj[i])
+					}
+					else
+					{
+						tempArr.push(i);
+						tempArr.push(obj[i]);
+						values.push(tempArr);
+					}
+				}
+				return values;
+			}
+		}	
+		console.log(getEntries(obj))
+		console.log(getEntries(mapData))
+	</script>
+</body>
+</html>
